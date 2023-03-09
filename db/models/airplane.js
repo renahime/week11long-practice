@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Airplane.init({
     airlineCode: {
       type: DataTypes.STRING,
-      unique: true,
+      // unique: true,
       allowNull: false,
       validate: {
         len: [2, 2],
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     flightNumber: {
       type: DataTypes.STRING,
-      unique: true,
+      // unique: true,
       allowNull: false,
       validate: {
         len: [1, 4],
@@ -57,6 +57,13 @@ module.exports = (sequelize, DataTypes) => {
             if (value !== null) {
               throw new Error('must be null')
             }
+          }
+        },
+        checkPassengers(value) {
+          console.log(this.maxNumPassengers)
+          console.log(value)
+          if ( value > this.maxNumPassengers ) {
+              throw new Error()
           }
         }
       }

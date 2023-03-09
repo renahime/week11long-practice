@@ -13,12 +13,12 @@ module.exports = {
       },
       airlineCode: {
         type: Sequelize.STRING,
-        unique: true,
+        // unique: true,
         allowNull: false
       },
       flightNumber: {
         type: Sequelize.STRING,
-        unique: true,
+        // unique: true,
         allowNull: false
       },
       inService: {
