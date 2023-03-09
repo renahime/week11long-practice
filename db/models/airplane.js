@@ -39,12 +39,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     maxNumPassengers: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      validate: {
+        min:2,
+        max:853
+      }
     },
     currentNumPassengers: {
       type: DataTypes.INTEGER,
       validate: {
         [Op.lt]: this.maxNumPassengers,
+        min: 0,
+        max:853,
         checkService(value) {
           if (this.inService === false) {
             if (value !== null) {
@@ -54,10 +61,21 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    firstFlightDate: { type: DataTypes.DATE }
+    firstFlightDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate: {
+        isAfter: '2019-12-31',
+        isBefore: '2022-01-01'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Airplane',
+    indexes:[ {
+      unique:true,
+      fields: [ 'airlineCode', 'flightNumber']
+    }]
   });
   return Airplane;
 };
