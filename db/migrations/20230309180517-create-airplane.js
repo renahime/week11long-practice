@@ -1,4 +1,7 @@
 'use strict';
+
+const sequelize = require("sequelize");
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Airplanes', {
@@ -9,13 +12,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       airlineCode: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true
       },
       flightNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       inService: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
       },
       maxNumPassengers: {
         type: Sequelize.INTEGER
@@ -28,11 +34,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       }
     });
   },
