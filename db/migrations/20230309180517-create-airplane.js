@@ -13,15 +13,18 @@ module.exports = {
       },
       airlineCode: {
         type: Sequelize.STRING,
-        unique:true
+        unique: true,
+        allowNull: false
       },
       flightNumber: {
-        type: Sequelize.INTEGER,
-        unique: true
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       inService: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true
+        defaultValue: true,
+        allowNull: false
       },
       maxNumPassengers: {
         type: Sequelize.INTEGER
