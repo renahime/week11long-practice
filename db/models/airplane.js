@@ -14,12 +14,28 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Airplane.init({
-    airlineCode: DataTypes.STRING,
-    flightNumber: DataTypes.INTEGER,
-    inService: DataTypes.BOOLEAN,
-    maxNumPassengers: DataTypes.INTEGER,
-    currentNumPassengers: DataTypes.INTEGER,
-    firstFlightDate: DataTypes.DATE
+    airlineCode: { type:DataTypes.STRING}
+    ,
+    flightNumber: {type:DataTypes.INTEGER},
+    inService: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    maxNumPassengers: {
+      type: DataTypes.INTEGER
+    },
+    currentNumPassengers: {
+      type:DataTypes.INTEGER,
+      validate: {
+        [Op.lt]: this.maxNumPassengers,
+        checkService() {
+          if(this.inService === false){
+            currentNumPassengers = null;
+          }
+        }
+      }
+    },
+    firstFlightDate: {type:DataTypes.DATE}
   }, {
     sequelize,
     modelName: 'Airplane',
